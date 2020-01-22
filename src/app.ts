@@ -1,50 +1,26 @@
 import express from "express";
+import Config from "./config";
 
 const app = express();
+const config = new Config();
 
-/**
- * Let's use root as API Documentation.
- */
-app.get("/", (req, res) => {
-  res.send(
-    {
-      documentation: {
-        overview: "Basic calls for Pixie & Dixie GIFs",
-        handlers: {
-          "/datasources": { },
-          "/images": { },
-          "/search": { }
-        }
-      }
-    }
-  );
-});
+const getHandler = (resource:string) => (req:express.Request, res:express.Response) => {
+  import(`./responses/${resource}`)
+    .then(callback => {
+      callback.default(req, res, config);
+    });
+}
+
+// Let's use root as API Documentation.
+app.get("/", getHandler("documentation"));
 
 // Get all datasources info
-app.get("/datasources", (req, res) => {
-  res.send(
-    {
-      data: {}
-    }
-  );
-});
+app.get("/datasources", getHandler("datasources"));
 
 // Search for images
-app.get("/images", (req, res) => {
-  res.send(
-    {
-      data: {}
-    }
-  );
-});
+app.get("/images", getHandler("images"));
 
 // Search for images
-app.get("/search", (req, res) => {
-  res.send(
-    {
-      data: {}
-    }
-  );
-});
+app.get("/search", getHandler("search"));
 
 export default app;

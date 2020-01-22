@@ -1,0 +1,16 @@
+{
+  "dataSources": {
+    "giphy": {
+      "name": "Giphy",
+      "baseUrl": "https://api.giphy.com/v1/",
+      "apiKeyParam": "api_key",
+      "apiKey": "Your Key"
+    },
+    "pixabay": {
+      "name": "Pixabay",
+      "baseUrl": "https://pixabay.com/api/",
+      "apiKeyParam": "key",
+      "apiKey": "Your Key"
+    }
+  }
+}
