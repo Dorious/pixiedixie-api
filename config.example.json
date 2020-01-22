@@ -2,15 +2,18 @@
   "dataSources": {
     "giphy": {
       "name": "Giphy",
+      "homepage": "https://giphy.com/",
       "baseUrl": "https://api.giphy.com/v1/",
       "apiKeyParam": "api_key",
       "apiKey": "Your Key"
     },
     "pixabay": {
       "name": "Pixabay",
+      "homepage": "https://pixabay.com/",
       "baseUrl": "https://pixabay.com/api/",
       "apiKeyParam": "key",
       "apiKey": "Your Key"
     }
-  }
+  },
+  "port": 8090
 }
