@@ -1,0 +1,26 @@
+{
+  "name": "pixiedixie-api",
+  "version": "1.0.0",
+  "description": "Pixie & Dixie Dev Test API Demo",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dorious/pixiedixie-api.git"
+  },
+  "keywords": [
+    "gif",
+    "gifs",
+    "mem",
+    "mems",
+    "demo"
+  ],
+  "author": "Dariusz Arciszewski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dorious/pixiedixie-api/issues"
+  },
+  "homepage": "https://github.com/Dorious/pixiedixie-api#readme"
+}
