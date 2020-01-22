@@ -4,10 +4,10 @@ import Config from "./config";
 const app = express();
 export const config = new Config();
 
-const getHandler = (resource:string) => (req:express.Request, res:express.Response) => {
+const getHandler = (resource:string) => (req:express.Request, res:express.Response, next:express.NextFunction) => {
   import(`./responses/${resource}`)
     .then(callback => {
-      callback.default(req, res, config);
+      callback.default(req, res, next, config);
     });
 }
 

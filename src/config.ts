@@ -14,33 +14,44 @@ export interface IDataSource {
 }
 
 /** Interface for config structure */
-export interface IConfig extends  IIndexSignature {
+export interface IConfig extends IIndexSignature {
   dataSources: IDataSource,
-  port: number
+  port: number,
+  queryParam: string,
+  dataSourcesParam: string
+}
+
+export const defaultConfig:IConfig = {
+  dataSources: {},
+  dataSourcesParam: "datasources",
+  port: 8090,
+  queryParam: "q",
 }
 
 /**
  * Class to control app configuration
  */
 class Config {
-  private configFile:string = "../config.json"
+  /** Config file path */
+  private configFile:string
 
-  private configRead:IConfig = {
-    dataSources: {},
-    port: 8090
-  }
+  private config:IConfig = {...defaultConfig}
 
-  constructor(configFile?:string) {
-    this.configFile = configFile || this.configFile;
-    const configRead:IConfig = require(this.configFile);
-    this.configRead = configRead;
+  /** Contains config with removed ${removeKeys} */
+  private configSafe:IConfig = {...defaultConfig}
+
+  constructor(configFile:string = "../config.json") {
+    this.configFile = configFile;
+    const config:IConfig = require(configFile);
+    this.config = JSON.parse(JSON.stringify(config));
+    this.configSafe = this.removeKeys(JSON.parse(JSON.stringify(config)));
   }
 
   /**
    * This is ugly and should be refactor
    * Idea is too remove unwanted config keys
    */
-  removeKeys = (config:IConfig) : void => {
+  removeKeys = (config:IConfig) : IConfig => {
     Object.keys(config).forEach((key:string) => {
       if(removeKeys[key]) {
         const thisRemoveKey = removeKeys[key];
@@ -55,18 +66,15 @@ class Config {
         })
       }
     });
+
+    return config;
   }
 
   /**
    * Get the whole app config
    */
-  getConfig = (param?:string, safe?:boolean) : object => {
-    safe = safe || true;
-    const config : IConfig = this.configRead;
-
-    if(safe)
-      this.removeKeys(config);
-
+  get = (param?:string, safe:boolean = true ) : object => {
+    const config : IConfig = safe ? this.configSafe : this.config;
     return param ? config[param] : config;
   }
 }
