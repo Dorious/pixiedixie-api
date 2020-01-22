@@ -8,18 +8,26 @@ const removeKeys :  IIndexSignature = {
   dataSources: ['apiKey', 'apiKeyParam']
 };
 
+/** DataSource interface */
+export interface IDataSource {
+  [propName: string]: object | string | number;
+}
+
 /** Interface for config structure */
-interface IConfig extends  IIndexSignature {
-  dataSources: object
+export interface IConfig extends  IIndexSignature {
+  dataSources: IDataSource,
+  port: number
 }
 
 /**
  * Class to control app configuration
  */
 class Config {
-  configFile:string = "../config.json"
-  configRead:IConfig = {
-    dataSources: {}
+  private configFile:string = "../config.json"
+
+  private configRead:IConfig = {
+    dataSources: {},
+    port: 8090
   }
 
   constructor(configFile?:string) {

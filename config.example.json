@@ -15,5 +15,6 @@
       "apiKey": "Your Key"
     }
   },
-  "port": 8090
+  "port": 8090,
+  "queryParam": "q"
 }

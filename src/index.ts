@@ -1,6 +1,6 @@
-import app from "./app";
+import app, { config } from "./app";
 
-const port = process.env.PIXIE_API_PORT || 8090;
+const port = process.env.PIXIE_API_PORT || config.getConfig("port");
 
 // Run the server
 app.listen(port, () => {
