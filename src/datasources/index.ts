@@ -1,6 +1,5 @@
 import Config from "../config";
-import DatasourceAdapter, { IImage } from "./adapter";
-import { AxiosError } from "axios";
+import DatasourceAdapter, { IResults, IImage, DEFAULT_COUNT } from "./adapter";
 
 export default class DataSources {
   list:string[] = []
@@ -34,21 +33,39 @@ export default class DataSources {
     });
   }
 
-  async search(q:string): Promise<object> {
+  async search(q:string, offset:number = 0, count:number = DEFAULT_COUNT): Promise<object> {
     const ds = await this.getDataSources();
-    let results:IImage[]|ErrorConstructor = [];
+    let results:IResults = null;
 
     for(const DatasourceClass of Object.values(ds)) {
       const datasource = new DatasourceClass(this.getConfig());
-      const data = await datasource.search(q);
+      const data = await datasource.search(q, offset, count);
 
-      if(data instanceof Error) {
+      if(data.error instanceof Error) {
         return Promise.resolve(data);
       }
 
-      results = results.concat(data);
+      results = this.mergeResults(results, data);
     }
 
     return Promise.resolve(results);
   }
+
+  mergeResults(resultsA:IResults, resultsB:IResults): IResults {
+    let results: IResults = resultsA;
+
+    if(!results) {
+      results = resultsB;
+    } else {
+      results.totalCount += resultsB.totalCount;
+      results.count += resultsB.count;
+      results.images = results.images.concat(resultsB.images);
+    }
+
+    results.images.sort(this.sortResults);
+
+    return results;
+  }
+
+  sortResults = (a:IImage, b:IImage) => new Date(a.created) < new Date(b.created) ? 1 : -1;
 }
