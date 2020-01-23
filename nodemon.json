@@ -1,9 +1,0 @@
-{
-  "watch": ["src/**/*.ts", "src/**/*.json"],
-  "ext": "ts,json",
-  "ignore": ["*.test.ts", "*.spec.ts"],
-  "delay": "1",
-  "execMap": {
-    "ts": "npm run prebuild && ts-node"
-  }
-}
