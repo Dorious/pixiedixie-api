@@ -6,6 +6,8 @@
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
+    "preproduction": "npm run build",
+    "production": "node .",
     "start": "ts-node-dev --respawn --transpileOnly src/index.ts",
     "test": "mocha -r ts-node/register src/**/*.test.ts"
   },
