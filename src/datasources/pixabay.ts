@@ -83,18 +83,21 @@ export default class Pixabay extends DatasourceAdapter {
     const endpoint = this.getEndpoint("search");
     this.setOffset(offset);
 
-    console.log('pixacount', count);
-
     return this.getData("search", {
       [endpoint.queryParam]: query,
-      per_page: count
+      per_page: count,
+      page: Math.floor(offset/count)+1
     });
   }
 
   async images(offset:number, count:number): Promise<IResults> {
     const endpoint = this.getEndpoint("images");
+    this.setOffset(offset);
 
-    return this.getData("images");
+    return this.getData("images", {
+      per_page: count,
+      page: Math.floor(offset/count)+1
+    });
   }
 
 }

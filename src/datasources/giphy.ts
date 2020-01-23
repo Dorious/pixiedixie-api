@@ -1,5 +1,5 @@
 import DatasourceAdapter, { IImage, IImageSize, IResults } from "./adapter";
-import { AxiosAdapter, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 export interface IGiphyImage {
   type: string,
@@ -96,7 +96,11 @@ export default class Giphy extends DatasourceAdapter {
 
   async images(offset:number, count:number): Promise<IResults> {
     const endpoint = this.getEndpoint("images");
-    return this.getData("images");
+
+    return this.getData("images", {
+      limit: count,
+      offset
+    });
   }
 
 }

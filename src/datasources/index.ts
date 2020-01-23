@@ -51,6 +51,24 @@ export default class DataSources {
     return Promise.resolve(results);
   }
 
+  async images(offset:number = 0, count:number = DEFAULT_COUNT): Promise<object> {
+    const ds = await this.getDataSources();
+    let results:IResults = null;
+
+    for(const DatasourceClass of Object.values(ds)) {
+      const datasource = new DatasourceClass(this.getConfig());
+      const data = await datasource.images(offset, count);
+
+      if(data.error instanceof Error) {
+        return Promise.resolve(data);
+      }
+
+      results = this.mergeResults(results, data);
+    }
+
+    return Promise.resolve(results);
+  }
+
   mergeResults(resultsA:IResults, resultsB:IResults): IResults {
     let results: IResults = resultsA;
 
