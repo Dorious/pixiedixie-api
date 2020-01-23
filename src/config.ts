@@ -15,6 +15,7 @@ export interface IDataSource {
 
 /** Interface for config structure */
 export interface IConfig extends IIndexSignature {
+  apiPrefix: string,
   dataSources: IDataSource,
   port: number,
   queryParam: string,
@@ -22,10 +23,11 @@ export interface IConfig extends IIndexSignature {
 }
 
 export const defaultConfig:IConfig = {
+  apiPrefix: '/',
   dataSources: {},
   dataSourcesParam: "datasources",
   port: 8090,
-  queryParam: "q",
+  queryParam: "q"
 }
 
 /**

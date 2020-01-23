@@ -1,4 +1,5 @@
 {
+  "apiPrefix": "/api/v1",
   "dataSources": {
     "giphy": {
       "name": "Giphy",
