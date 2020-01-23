@@ -5,16 +5,27 @@
       "homepage": "https://giphy.com/",
       "baseUrl": "https://api.giphy.com/v1/",
       "apiKeyParam": "api_key",
-      "apiKey": "Your Key"
+      "apiKey": "Yo' key here!",
+      "queryParam": "q",
+      "endpoints": {
+        "search": "gifs/search",
+        "images": "gifs/trending"
+      }
     },
     "pixabay": {
       "name": "Pixabay",
       "homepage": "https://pixabay.com/",
       "baseUrl": "https://pixabay.com/api/",
       "apiKeyParam": "key",
-      "apiKey": "Your Key"
+      "apiKey": "Yo' key here!",
+      "queryParam": "q",
+      "endpoints": {
+        "search": "",
+        "images": ""
+      }
     }
   },
-  "port": 8090,
+  "dataSourcesParam": "datasources",
+  "port": 8001,
   "queryParam": "q"
 }
