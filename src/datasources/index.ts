@@ -2,20 +2,20 @@ import Config from "../config";
 import DatasourceAdapter, { IResults, IImage, DEFAULT_COUNT } from "./adapter";
 
 export default class DataSources {
-  list:string[] = []
-  config:Config = null;
+  list: string[] = []
+  config: Config = null;
 
-  constructor(config:Config, list?:[string]) {
+  constructor(config: Config, list?: [string]) {
     this.config = config
     this.list = list || this.getDefaultList();
   }
 
-  getConfig = ():Config => this.config
+  getConfig = (): Config => this.config
 
-  getDefaultList = ():string[] => Object.keys(this.getConfig().get('dataSources'))
+  getDefaultList = (): string[] => Object.keys(this.getConfig().get('dataSources'))
 
-  getDataSources() : Promise<object> {
-    const ds:DatasourceAdapter[] = [];
+  getDataSources(): Promise<object> {
+    const ds: DatasourceAdapter[] = [];
 
     return new Promise((res, rej) => {
       let count = 0;
@@ -33,9 +33,9 @@ export default class DataSources {
     });
   }
 
-  async search(q:string, offset:number = 0, count:number = DEFAULT_COUNT): Promise<object> {
+  async search(q: string, offset = 0, count: number = DEFAULT_COUNT): Promise<object> {
     const ds = await this.getDataSources();
-    let results:IResults = null;
+    let results: IResults = null;
 
     for(const DatasourceClass of Object.values(ds)) {
       const datasource = new DatasourceClass(this.getConfig());
@@ -51,9 +51,9 @@ export default class DataSources {
     return Promise.resolve(results);
   }
 
-  async images(offset:number = 0, count:number = DEFAULT_COUNT): Promise<object> {
+  async images(offset = 0, count: number = DEFAULT_COUNT): Promise<object> {
     const ds = await this.getDataSources();
-    let results:IResults = null;
+    let results: IResults = null;
 
     for(const DatasourceClass of Object.values(ds)) {
       const datasource = new DatasourceClass(this.getConfig());
@@ -69,7 +69,7 @@ export default class DataSources {
     return Promise.resolve(results);
   }
 
-  mergeResults(resultsA:IResults, resultsB:IResults): IResults {
+  mergeResults(resultsA: IResults, resultsB: IResults): IResults {
     let results: IResults = resultsA;
 
     if(!results) {
@@ -85,5 +85,5 @@ export default class DataSources {
     return results;
   }
 
-  sortResults = (a:IImage, b:IImage) => new Date(a.created) < new Date(b.created) ? 1 : -1;
+  sortResults = (a: IImage, b: IImage) => new Date(a.created) < new Date(b.created) ? 1 : -1;
 }

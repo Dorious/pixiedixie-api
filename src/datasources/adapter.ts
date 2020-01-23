@@ -4,37 +4,37 @@ import axios, { AxiosResponse } from "axios";
 export const DEFAULT_COUNT = 25;
 
 export interface IImageSize {
-  width: number,
-  height: number,
-  url: string,
-  size: string
+  width: number;
+  height: number;
+  url: string;
+  size: string;
 }
 
 export interface IImage {
-  created: string,
-  datasource?: string,
-  images: IImageSize[],
-  pageUrl: string,
-  type: string,
+  created: string;
+  datasource?: string;
+  images: IImageSize[];
+  pageUrl: string;
+  type: string;
 }
 
 export interface IResults {
-  totalCount: number,
-  offset: number,
-  count: number,
-  images: IImage[],
-  error?: ErrorConstructor
+  totalCount: number;
+  offset: number;
+  count: number;
+  images: IImage[];
+  error?: ErrorConstructor;
 }
 
 export interface IDataSourceConfig {
-  [propName: string]: any
+  [propName: string]: any;
 }
 
 export interface IDataSourceParams {
-  query?: string,
-  offset?: number,
-  count?: number,
-  [propName: string]: any
+  query?: string;
+  offset?: number;
+  count?: number;
+  [propName: string]: any;
 }
 
 /**
@@ -45,7 +45,7 @@ export default abstract class DatasourceAdapter {
   private config: Config
   private configKey: string
 
-  constructor(config:Config) {
+  constructor(config: Config) {
     this.config = config;
     this.configKey = this.constructor.name.toLowerCase();
   }
@@ -56,20 +56,20 @@ export default abstract class DatasourceAdapter {
    * @param offset Where to start
    * @param count How much
    */
-  abstract async search(query:string, offset:number, count:number): Promise<IResults|string>
+  abstract async search(query: string, offset: number, count: number): Promise<IResults|string>
 
   /**
    * Method for main page to get lates/random/trendy pictues
    * @param offset Where to start
    * @param count How much
    */
-  abstract async images(offset:number, count:number): Promise<IResults|string>
+  abstract async images(offset: number, count: number): Promise<IResults|string>
 
   /**
    * Returns this DataSource config from config.json
    */
   getConfig(): IDataSourceConfig {
-    const config:IDataSourceConfig = this.config.get("dataSources", false);
+    const config: IDataSourceConfig = this.config.get("dataSources", false);
     return config[this.configKey];
   }
 
@@ -77,7 +77,7 @@ export default abstract class DatasourceAdapter {
    * Return configuration for specific endpoint
    * @param name A name of endpoint from config.json
    */
-  getEndpoint(name:string) {
+  getEndpoint(name: string) {
     const config = this.getConfig();
     const { baseUrl, apiKeyParam, apiKey, queryParam, endpoints } = config;
     const endpoint = endpoints[name];
@@ -94,25 +94,25 @@ export default abstract class DatasourceAdapter {
   /**
    * Methods for for pagination
    */
-  getTotal = (data:AxiosResponse) => 0
-  getCount = (data:AxiosResponse) => 0
-  getOffset = (data:AxiosResponse) => 0
+  getTotal = (data: AxiosResponse) => 0
+  getCount = (data: AxiosResponse) => 0
+  getOffset = (data: AxiosResponse) => 0
 
   /**
    * Fetch data via endpoint
    * @param endpointName A name of endpoint from config.json
    * @param params GET query params
    */
-  async getData(endpointName:string, params?:IDataSourceParams): Promise<IResults> {
+  async getData(endpointName: string, params?: IDataSourceParams): Promise<IResults> {
     const endpoint = this.getEndpoint(endpointName);
 
-    let results:IResults = {
+    let results: IResults = {
       totalCount: 0,
       count: 0,
       offset: 0,
       images: []
     };
-    let images:IImage[] = [];
+    let images: IImage[] = [];
 
     params = {...endpoint.params, ...params};
 
@@ -143,8 +143,8 @@ export default abstract class DatasourceAdapter {
   /**
    * Dummy translateImage function that just return the input
    */
-  translateImages = (data:any): any => {
-    const images:IImage[] = [];
+  translateImages = (data: any): any => {
+    const images: IImage[] = [];
     return images;
   }
 }

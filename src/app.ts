@@ -6,7 +6,7 @@ const router = express.Router();
 export const config = new Config();
 const apiPrefix = config.get("apiPrefix") || '/';
 
-const getHandler = (resource:string) => (req:express.Request, res:express.Response, next:express.NextFunction) => {
+const getHandler = (resource: string) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
   import(`./responses/${resource}`)
     .then(callback => {
       callback.default(req, res, next, config);

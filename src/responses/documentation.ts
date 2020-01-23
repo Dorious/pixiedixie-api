@@ -9,7 +9,7 @@ const response = {
   }
 }
 
-export default (req : express.Request, res : express.Response): object => {
+export default (req: express.Request, res: express.Response): object => {
   const documentation = Object.assign({}, response);
 
   return res.send(

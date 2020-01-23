@@ -3,7 +3,7 @@ import Config from "../config";
 import { DEFAULT_COUNT, IResults } from "../datasources/adapter";
 import DataSources from "../datasources";
 
-export default (req:express.Request, res:express.Response, next:express.NextFunction, config:Config): object => {
+export default (req: express.Request, res: express.Response, next: express.NextFunction, config: Config): object => {
   const reqOffset = parseInt(req.query.offset, 10);
   const reqCount = parseInt(req.query.count, 10) || DEFAULT_COUNT;
 
@@ -14,7 +14,7 @@ export default (req:express.Request, res:express.Response, next:express.NextFunc
 
   return datasources
     .images(reqOffset, reqCount)
-    .then((results:IResults) => {
+    .then((results: IResults) => {
       const { error, totalCount, offset, count, images } = results;
 
       if(error instanceof Error) {

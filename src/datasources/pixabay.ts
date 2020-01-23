@@ -2,20 +2,20 @@ import DatasourceAdapter, { IImage, IResults } from "./adapter";
 import { AxiosResponse } from "axios";
 
 export interface IPixabayImage {
-  largeImageURL: string,
-  imageHeight: number,
-  imageWidth: number,
-  pageURL: string,
-  previewURL: string,
-  type: string,
-  webformatHeight: number,
-  webformatWidth: number,
-  webformatURL: string
+  largeImageURL: string;
+  imageHeight: number;
+  imageWidth: number;
+  pageURL: string;
+  previewURL: string;
+  type: string;
+  webformatHeight: number;
+  webformatWidth: number;
+  webformatURL: string;
 }
 
 export interface IData extends AxiosResponse {
-  hits: IPixabayImage[],
-  total: number
+  hits: IPixabayImage[];
+  total: number;
 }
 
 export default class Pixabay extends DatasourceAdapter {
@@ -23,13 +23,13 @@ export default class Pixabay extends DatasourceAdapter {
    * Need to set offset on fetch.
    * Because API doesn't provide.
    */
-  private offset:number = 0
+  private offset = 0
 
   /**
    * Parse date from url
    * Yeah that is sick but that's the only way :P
    */
-  parseDate(image:IPixabayImage) {
+  parseDate(image: IPixabayImage) {
     const m = image.previewURL.match(/([\d]{4})\/([\d]{2})\/([\d]{2})\/([\d]{2})\/([\d]{2})\//);
     return `${m[1]}-${m[2]}-${m[3]} ${m[4]}:${m[5]}`;
   }
@@ -38,10 +38,10 @@ export default class Pixabay extends DatasourceAdapter {
    * Multiple sizes for responsive
    * Probably not necessary for out purpose but what the heck
    */
-  translateImage(pixabayImage:IPixabayImage) {
+  translateImage(pixabayImage: IPixabayImage) {
     const type = pixabayImage.webformatURL.split('.').pop();
 
-    const image:IImage = {
+    const image: IImage = {
       type,
       created: this.parseDate(pixabayImage),
       datasource: 'pixabay',
@@ -66,19 +66,19 @@ export default class Pixabay extends DatasourceAdapter {
   /**
    * Translates Pixabay to our format
    */
-  translateImages = (responseData:IData):IImage[] => {
-    const images:IImage[] = responseData.hits.map(
-      (pixabayImage:IPixabayImage) => this.translateImage(pixabayImage)
+  translateImages = (responseData: IData): IImage[] => {
+    const images: IImage[] = responseData.hits.map(
+      (pixabayImage: IPixabayImage) => this.translateImage(pixabayImage)
     );
     return images;
   }
 
-  getTotal = (data:IData) => data.total
-  getCount = (data:IData) => data.hits.length
-  getOffset = (data:IData) => this.offset
-  setOffset = (offset:number) => this.offset = offset;
+  getTotal = (data: IData) => data.total
+  getCount = (data: IData) => data.hits.length
+  getOffset = (data: IData) => this.offset
+  setOffset = (offset: number) => this.offset = offset;
 
-  async search(query:string, offset:number, count:number): Promise<IResults|string> {
+  async search(query: string, offset: number, count: number): Promise<IResults|string> {
     const endpoint = this.getEndpoint("search");
     this.setOffset(offset);
 
@@ -89,7 +89,7 @@ export default class Pixabay extends DatasourceAdapter {
     });
   }
 
-  async images(offset:number, count:number): Promise<IResults> {
+  async images(offset: number, count: number): Promise<IResults> {
     const endpoint = this.getEndpoint("images");
     this.setOffset(offset);
 

@@ -4,7 +4,7 @@ interface IIndexSignature {
 }
 
 /** removeKeys contain which keys we don't won't to see for public */
-const removeKeys :  IIndexSignature = {
+const removeKeys:  IIndexSignature = {
   dataSources: ['apiKey', 'apiKeyParam']
 };
 
@@ -15,14 +15,14 @@ export interface IDataSource {
 
 /** Interface for config structure */
 export interface IConfig extends IIndexSignature {
-  apiPrefix: string,
-  dataSources: IDataSource,
-  port: number,
-  queryParam: string,
-  dataSourcesParam: string
+  apiPrefix: string;
+  dataSources: IDataSource;
+  port: number;
+  queryParam: string;
+  dataSourcesParam: string;
 }
 
-export const defaultConfig:IConfig = {
+export const defaultConfig: IConfig = {
   apiPrefix: '/',
   dataSources: {},
   dataSourcesParam: "datasources",
@@ -35,16 +35,16 @@ export const defaultConfig:IConfig = {
  */
 class Config {
   /** Config file path */
-  private configFile:string
+  private configFile: string
 
-  private config:IConfig = {...defaultConfig}
+  private config: IConfig = {...defaultConfig}
 
   /** Contains config with removed ${removeKeys} */
-  private configSafe:IConfig = {...defaultConfig}
+  private configSafe: IConfig = {...defaultConfig}
 
-  constructor(configFile:string = "../config.json") {
+  constructor(configFile = "../config.json") {
     this.configFile = configFile;
-    const config:IConfig = require(configFile);
+    const config: IConfig = require(configFile);
     this.config = JSON.parse(JSON.stringify(config));
     this.configSafe = this.removeKeys(JSON.parse(JSON.stringify(config)));
   }
@@ -53,14 +53,14 @@ class Config {
    * This is ugly and should be refactor
    * Idea is too remove unwanted config keys
    */
-  removeKeys = (config:IConfig) : IConfig => {
-    Object.keys(config).forEach((key:string) => {
+  removeKeys = (config: IConfig): IConfig => {
+    Object.keys(config).forEach((key: string) => {
       if(removeKeys[key]) {
         const thisRemoveKey = removeKeys[key];
 
-        Object.keys(config[key]).forEach((insideKey:string) => {
+        Object.keys(config[key]).forEach((insideKey: string) => {
           if(typeof config[key] === "object") {
-            Object.keys(config[key][insideKey]).forEach((deepKey:string) => {
+            Object.keys(config[key][insideKey]).forEach((deepKey: string) => {
               if(thisRemoveKey.indexOf(deepKey) > -1)
                 delete(config[key][insideKey][deepKey]);
             })
@@ -75,8 +75,8 @@ class Config {
   /**
    * Get the whole app config
    */
-  get = (param?:string, safe:boolean = true ) : object => {
-    const config : IConfig = safe ? this.configSafe : this.config;
+  get = (param?: string, safe = true ): object => {
+    const config: IConfig = safe ? this.configSafe : this.config;
     return param ? config[param] : config;
   }
 }

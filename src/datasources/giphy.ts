@@ -2,44 +2,44 @@ import DatasourceAdapter, { IImage, IImageSize, IResults } from "./adapter";
 import { AxiosResponse } from "axios";
 
 export interface IGiphyImage {
-  type: string,
-  import_datetime: string,
-  images: IGiphyImageSizes,
-  url: string
+  type: string;
+  import_datetime: string;
+  images: IGiphyImageSizes;
+  url: string;
 }
 
 export interface IGiphyImageSizes {
-  [propName: string]: IGiphyImageSize
+  [propName: string]: IGiphyImageSize;
 }
 
 export interface IGiphyImageSize {
-  url: string,
-  width: number,
-  height: number
+  url: string;
+  width: number;
+  height: number;
 }
 
 export interface ISizes {
-  [propName: string]: string
+  [propName: string]: string;
 }
 
 export interface IData extends AxiosResponse {
-  data: [],
+  data: [];
   pagination: {
-    total_count: number,
-    count: number,
-    offset: number
-  }
+    total_count: number;
+    count: number;
+    offset: number;
+  };
 }
 
 export default class Giphy extends DatasourceAdapter {
 
-  sizes:ISizes = {
+  sizes: ISizes = {
     fixed_width: "normal"
   };
 
-  translateImageSizes = (giphyImage:IGiphyImage) => {
-    const imageSizes:IImageSize[] = Object.keys(this.sizes).map((key:string) => {
-      const imageInfo:IGiphyImageSize = giphyImage.images[key];
+  translateImageSizes = (giphyImage: IGiphyImage) => {
+    const imageSizes: IImageSize[] = Object.keys(this.sizes).map((key: string) => {
+      const imageInfo: IGiphyImageSize = giphyImage.images[key];
       return {
         size: this.sizes[key],
         url: imageInfo.url,
@@ -51,10 +51,10 @@ export default class Giphy extends DatasourceAdapter {
     return imageSizes;
   }
 
-  translateImage = (giphyImage:IGiphyImage) => {
-    const imageSizes:IImageSize[] = this.translateImageSizes(giphyImage);
+  translateImage = (giphyImage: IGiphyImage) => {
+    const imageSizes: IImageSize[] = this.translateImageSizes(giphyImage);
 
-    const image:IImage = {
+    const image: IImage = {
       datasource: 'giphy',
       type: giphyImage.type,
       created: giphyImage.import_datetime,
@@ -65,26 +65,26 @@ export default class Giphy extends DatasourceAdapter {
     return image;
   }
 
-  translateImages = (responseData:IData) => {
-    const images:IImage[] = responseData.data.map(
-      (giphyImage:IGiphyImage) => this.translateImage(giphyImage)
+  translateImages = (responseData: IData) => {
+    const images: IImage[] = responseData.data.map(
+      (giphyImage: IGiphyImage) => this.translateImage(giphyImage)
     );
     return images;
   }
 
-  getTotal = (data:IData) => {
+  getTotal = (data: IData) => {
     return data.pagination.total_count;
   }
 
-  getCount = (data:IData) => {
+  getCount = (data: IData) => {
     return data.pagination.count;
   }
 
-  getOffset = (data:IData) => {
+  getOffset = (data: IData) => {
     return data.pagination.offset;
   }
 
-  async search(query:string, offset:number, count:number): Promise<IResults|string> {
+  async search(query: string, offset: number, count: number): Promise<IResults|string> {
     const endpoint = this.getEndpoint("search");
 
     return this.getData("search", {
@@ -94,7 +94,7 @@ export default class Giphy extends DatasourceAdapter {
     });
   }
 
-  async images(offset:number, count:number): Promise<IResults> {
+  async images(offset: number, count: number): Promise<IResults> {
     const endpoint = this.getEndpoint("images");
 
     return this.getData("images", {
