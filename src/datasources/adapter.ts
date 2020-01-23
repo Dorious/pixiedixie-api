@@ -44,7 +44,6 @@ export interface IDataSourceParams {
 export default abstract class DatasourceAdapter {
   private config: Config
   private configKey: string
-  private offset: number
 
   constructor(config:Config) {
     this.config = config;

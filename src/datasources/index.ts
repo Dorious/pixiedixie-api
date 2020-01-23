@@ -60,7 +60,7 @@ export default class DataSources {
       const data = await datasource.images(offset, count);
 
       if(data.error instanceof Error) {
-        return Promise.resolve(data);
+        return Promise.reject(data.error);
       }
 
       results = this.mergeResults(results, data);

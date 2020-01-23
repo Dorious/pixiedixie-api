@@ -1,6 +1,6 @@
 import express from "express";
 import Config from "../config";
-import { DEFAULT_COUNT } from "../datasources/adapter";
+import { DEFAULT_COUNT, IResults } from "../datasources/adapter";
 import DataSources from "../datasources";
 
 export default (req:express.Request, res:express.Response, next:express.NextFunction, config:Config): object => {

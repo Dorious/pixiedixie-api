@@ -20,11 +20,10 @@ export interface IData extends AxiosResponse {
 
 export default class Pixabay extends DatasourceAdapter {
   /**
-   * Need to set count/offset on fetch.
+   * Need to set offset on fetch.
    * Because API doesn't provide.
    */
-  private count = 0
-  private offset = 0
+  private offset:number = 0
 
   /**
    * Parse date from url
