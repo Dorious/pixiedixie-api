@@ -6,9 +6,8 @@
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
-    "preproduction": "npm run build",
     "production": "node .",
-    "start": "ts-node-dev --respawn --transpileOnly src/index.ts",
+    "start": "ts-node-dev --no-notify --respawn --transpileOnly src/index.ts",
     "test": "mocha -r ts-node/register src/**/*.test.ts"
   },
   "repository": {
@@ -28,17 +27,19 @@
     "url": "https://github.com/Dorious/pixiedixie-api/issues"
   },
   "homepage": "https://github.com/Dorious/pixiedixie-api#readme",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  },
   "devDependencies": {
     "@types/express": "^4.17.2",
     "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.8",
     "@types/node-fetch": "^2.5.4",
-    "axios": "^0.19.2",
-    "express": "^4.17.1",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.0.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "uglify-es": "^3.3.9"
   }
 }
