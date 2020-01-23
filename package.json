@@ -4,7 +4,7 @@
   "description": "Pixie & Dixie Dev Test API Demo",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "prebuild": "eslint src/ --ext ts --fix --quiet",
     "build": "tsc",
     "production": "node .",
     "start": "ts-node-dev --no-notify --respawn --transpileOnly src/index.ts",
@@ -36,9 +36,11 @@
     "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.8",
     "@types/node-fetch": "^2.5.4",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "eslint": "^6.8.0",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "tslint": "^6.0.0",
     "typescript": "^3.7.5",
     "uglify-es": "^3.3.9"
   }
