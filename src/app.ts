@@ -1,5 +1,6 @@
 import express from "express";
 import Config from "./config";
+import {AxiosError} from "axios";
 
 const app = express();
 export const myRouter = express.Router();
@@ -9,7 +10,26 @@ const apiPrefix = config.get("apiPrefix") || '/';
 export const getHandler = (resource: string) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
   import(`./responses/${resource}`)
     .then(callback => {
-      callback.default(req, res, next, config);
+      const p = callback.default(req, res, next, config);
+      
+      if(typeof(p.catch) === "function") 
+        p.catch((err:AxiosError|string) => {
+          if(typeof(err) === "string") {
+            return res.status(400).send({
+              status: "error",
+              message: err,
+            });
+          } else {
+            let status = err.response ? err.response.status : 500;
+            return res.status(status).send({
+              status: "error",
+              message: err.message,
+              stack: err.stack
+            });
+          }
+        });
+      
+      return p;
     });
 }
 

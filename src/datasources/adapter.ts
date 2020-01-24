@@ -117,9 +117,7 @@ export default abstract class DatasourceAdapter {
     params = {...endpoint.params, ...params};
 
     try {
-      /**
-       * Fancy trick with 
-       */
+      // This odd way of invoking axios make it 
       const response = await axios["get"](endpoint.url, {params});
       const data = response.data;
 

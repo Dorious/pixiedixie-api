@@ -28,8 +28,10 @@ export default class DataSources {
           if(count === this.list.length) {
             res(ds);
           }
-        });
-      });
+        }).catch((err) => {
+          rej(`Can't import Adapter for '${name}'`);
+        });;
+      })
     });
   }
 
