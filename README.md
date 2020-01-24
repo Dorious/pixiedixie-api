@@ -30,7 +30,7 @@ Inside `config.json` you can change `"port"` and then just:
 	Setting up "/api/v1" API prefix...
 	Server running @ http://localhost:8001/api/v1
 
-Go to `[[2] http://localhost:8001/api/v1][#apidoc]` for basic API documentation.
+Go to [[2] http://localhost:8001/api/v1][#apidoc] for basic API documentation.
     
 ### Testing
 
