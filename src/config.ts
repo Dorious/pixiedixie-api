@@ -75,7 +75,7 @@ class Config {
   /**
    * Get the whole app config
    */
-  get = (param?: string, safe = true ): object => {
+  get = (param?: string, safe = true ): any => {
     const config: IConfig = safe ? this.configSafe : this.config;
     return param ? config[param] : config;
   }
