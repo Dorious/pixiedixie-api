@@ -6,12 +6,28 @@ const getExample = (req: Request, uri: string): string => {
   return `${req.protocol}://${req.get('host')}${apiPrefix}${uri}`;
 };
 
+export interface IDocumentation {
+  overview: string;
+  handlers: {
+    [propName: string]: {
+      [propName: string]: {
+        usage: string;
+        example: string; 
+      };
+    };
+  };
+}
+
+export interface IResponse {
+  documentation: IDocumentation;
+}
+
 /**
  * Don't have time but we could make it autogenerate the doc
  */
 export default (req: Request, res: Response): object => {
     
-  const response = {
+  const doc: IDocumentation = {
     overview: "Basic calls for Pixie & Dixie GIFs",
     handlers: {
       "/datasources": { 
@@ -35,9 +51,7 @@ export default (req: Request, res: Response): object => {
     }
   };
 
-  const documentation = Object.assign({}, response);
-
-
+  const documentation = Object.assign({}, doc);
 
   return res.send(
     {documentation}

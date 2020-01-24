@@ -117,10 +117,10 @@ export default abstract class DatasourceAdapter {
     params = {...endpoint.params, ...params};
 
     try {
-      const response = await axios(endpoint.url, {
-        params
-      });
-
+      /**
+       * Fancy trick with 
+       */
+      const response = await axios["get"](endpoint.url, {params});
       const data = response.data;
 
       if(data) {
@@ -134,7 +134,7 @@ export default abstract class DatasourceAdapter {
         };
       }
     } catch (e) {
-      results.error = e;
+      return Promise.reject(e);
     }
 
     return Promise.resolve(results);

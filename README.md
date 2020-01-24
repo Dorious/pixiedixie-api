@@ -36,6 +36,9 @@ Go to [[2] http://localhost:8001/api/v1][#apidoc] for basic API documentation.
 
 	$ npm run test
 
+Wasn't really focused fully on TDD honestly. More prototype approach.<br>
+But just added some features like mocking axios queries.
+
 ### Production
 No Dockerimage at the time of writing. Just build and run:
 
@@ -49,20 +52,23 @@ Some description what I did so far:
 1. NodeJS
 2. TypeScript
 3. Express
-4. Axios
-5. Mocha
+4. Axios (moxios for mocking)
+5. Jest (with ts-jest preset)
 
 #### DataSources - `src/datasources`
 As I wanted data sources to be easily added to the site I've implemented `Adapter` pattern where each provider has own class (extended from abstract DataSourceAdapter) with proper interfaces.
 
 #### Responses - `src/responses`
-Basically here you router responses methods.
+Basically here you put your router responses methods.<br>
+Add them later in `src/app.ts` like the others with `getHandler` method.
+
+NOTE: This could be refactor a lil bit because every route right now uses the same `getHandler` method.
 
 ## TODO
 1. Be more TS strict in some places like put return types of each function.
 2. DataSources some refactor. Some code is duplicated there and I could make.
 3. Error handling could be in some places better.
-3. Dynamic offset/count.The problem with multiple sources is that when you want to get 30 results you don't know will you get the same amount so sometimes you can have gaps. Need to find a nice way to fill that gaps.
+3. Dynamic offset/count. The problem with multiple sources is that when you want to get 30 results you don't know will you get the same amount so sometimes you can have gaps. Need to find a nice way to fill that gaps.
 4. More documentation in the code.
 5. Others:
 	* Minify `dist` build.

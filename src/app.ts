@@ -2,11 +2,11 @@ import express from "express";
 import Config from "./config";
 
 const app = express();
-const router = express.Router();
+export const myRouter = express.Router();
 export const config = new Config();
 const apiPrefix = config.get("apiPrefix") || '/';
 
-const getHandler = (resource: string) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
+export const getHandler = (resource: string) => (req: express.Request, res: express.Response, next: express.NextFunction) => {
   import(`./responses/${resource}`)
     .then(callback => {
       callback.default(req, res, next, config);
@@ -14,19 +14,19 @@ const getHandler = (resource: string) => (req: express.Request, res: express.Res
 }
 
 // Let's use root as API Documentation.
-router.get("/", getHandler("documentation"));
+myRouter.get("/", getHandler("documentation"));
 
 // Get all datasources info.
-router.get("/datasources", getHandler("datasources"));
+myRouter.get("/datasources", getHandler("datasources"));
 
 // Get some images for main page.
-router.get("/images", getHandler("images"));
+myRouter.get("/images", getHandler("images"));
 
 // Search for images.
-router.get("/search", getHandler("search"));
+myRouter.get("/search", getHandler("search"));
 
 // Setup api prefix
 console.log(`Setting up "${apiPrefix}" API prefix...`);
-app.use(apiPrefix.toString(), router);
+app.use(apiPrefix, myRouter);
 
 export default app;
