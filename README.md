@@ -29,6 +29,8 @@ Inside `config.json` you can change `"port"` and then just:
 	Using ts-node version 8.6.2, typescript version 3.7.5
 	Setting up "/api/v1" API prefix...
 	Server running @ http://localhost:8001/api/v1
+
+Go to `[[1] http://localhost:8001/api/v1][#apidoc]` for basic API documentation.
     
 ### Testing
 
@@ -53,6 +55,8 @@ Some description what I did so far:
 #### DataSources - `src/datasources`
 As I wanted data sources to be easily added to the site I've implemented `Adapter` pattern where each provider has own class (extended from abstract DataSourceAdapter) with proper interfaces.
 
+#### Responses - `src/responses`
+Basically here you router responses methods.
 
 ## TODO
 1. Be more TS strict in some places like put return types of each function.
@@ -63,5 +67,5 @@ As I wanted data sources to be easily added to the site I've implemented `Adapte
 5. Others:
 	* Minify `dist` build.
 
-
 [#frontend]: https://github.com/Dorious/pixiedixie-web "Front-end part for full setup"
+[#apidoc]: http://localhost:8001/api/v1 "API generated documentation"
