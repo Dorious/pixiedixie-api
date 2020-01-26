@@ -13,14 +13,14 @@ export const getHandler = (resource: string) => (req: express.Request, res: expr
       const p = callback.default(req, res, next, config);
       
       if(typeof(p.catch) === "function") 
-        p.catch((err:AxiosError|string) => {
+        p.catch((err: AxiosError|string) => {
           if(typeof(err) === "string") {
             return res.status(400).send({
               status: "error",
               message: err,
             });
           } else {
-            let status = err.response ? err.response.status : 500;
+            const status = err.response ? err.response.status : 500;
             return res.status(status).send({
               status: "error",
               message: err.message,

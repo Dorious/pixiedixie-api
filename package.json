@@ -1,11 +1,11 @@
 {
   "name": "pixiedixie-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pixie & Dixie Dev Test API Demo",
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "eslint src/ --ext ts --fix --quiet",
-    "build": "tsc",
+    "build": "tsc --declaration",
     "production": "node .",
     "start": "ts-node-dev --no-notify --respawn --transpileOnly src/index.ts",
     "test": "jest --coverage",

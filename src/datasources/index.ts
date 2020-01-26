@@ -30,7 +30,7 @@ export default class DataSources {
           }
         }).catch((err) => {
           rej(`Can't import Adapter for '${name}'`);
-        });;
+        });
       })
     });
   }
