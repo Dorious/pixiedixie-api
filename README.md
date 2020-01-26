@@ -40,11 +40,17 @@ Wasn't really focused fully on TDD honestly. More prototype approach.<br>
 But just added some features like mocking axios queries.
 
 ### Production
-No Dockerimage at the time of writing. Just build and run:
+
+Obviously you have installed everything from previous step, so now you can:
 
 	$ npm run build
     $ npm run production
 It will compile TS into ES6 and run the server.
+
+You can also use Docker:
+	
+	$ docker image build -t pixiedixie:1.0.1 
+	$ docker container run --publish 8000:8000 --name pixiedixie-api pixiedixie:1.0.1
 
 ## Development
 Some description what I did so far:

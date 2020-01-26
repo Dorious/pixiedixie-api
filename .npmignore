@@ -1,0 +1,9 @@
+node_modules/
+src/
+coverage/
+config.json
+.nyc_output/
+.*
+jest.config.js
+tsconfig.json
+Dockerimage-*
