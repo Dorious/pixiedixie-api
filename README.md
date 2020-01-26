@@ -73,10 +73,11 @@ NOTE: This could be refactor a lil bit because every route right now uses the sa
 ## TODO
 1. Be more TS strict in some places like put return types of each function.
 2. DataSources some refactor. Some code is duplicated there and I could make.
-3. Error handling could be in some places better.
-3. Dynamic offset/count. The problem with multiple sources is that when you want to get 30 results you don't know will you get the same amount so sometimes you can have gaps. Need to find a nice way to fill that gaps.
-4. More documentation in the code.
-5. Others:
+3. Some Token Authentication could be done.
+4. Error handling could be in some places better.
+5. Dynamic offset/count. The problem with multiple sources is that when you want to get 30 results you don't know will you get the same amount so sometimes you can have gaps. Need to find a nice way to fill that gaps.
+6. More documentation in the code.
+7. Others:
 	* Minify `dist` build.
 
 [#frontend]: https://github.com/Dorious/pixiedixie-web "Front-end part for full setup"
